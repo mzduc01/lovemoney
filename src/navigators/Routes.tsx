@@ -1,0 +1,7 @@
+export default {
+    MAIN_BOTTOM_TAB: "MAIN_BOTTOM_TAB",
+    HOME: "HOME",
+    ACTIVITY: "ACTIVITY",
+    CHART: "CHART",
+    SETTING: "SETTING"
+}
