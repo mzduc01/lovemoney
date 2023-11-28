@@ -1,6 +1,6 @@
 import {SAVE_TOKEN, TOGGLE_MENU} from "./actions";
 const initState = {
-  visibleMenu: true,
+  visibleMenu: false,
   access_token: null,
 };
 function appReducer(state = initState, action: any) {

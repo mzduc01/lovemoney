@@ -1,23 +1,21 @@
 import Colors from "@app/assets/colors/Colors";
-import { images } from "@app/assets/images";
+import {images} from "@app/assets/images";
 import AppActions from "@app/redux/app/actions";
-import { RootState } from "@app/redux/store";
-import {
-  moderateScale,
-  scale
-} from "@app/utils/scale";
-import { useNavigation } from "@react-navigation/native";
+import {RootState} from "@app/redux/store";
+import {moderateScale, scale} from "@app/utils/scale";
+import {useNavigation} from "@react-navigation/native";
 import React from "react";
 import {
   Image,
   ModalProps,
   StyleSheet,
   TouchableWithoutFeedback,
-  View
+  View,
 } from "react-native";
+import LinearGradient from "react-native-linear-gradient";
 import Modal from "react-native-modal/dist/modal";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useDispatch, useSelector } from "react-redux";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {useDispatch, useSelector} from "react-redux";
 
 interface IProps extends ModalProps {}
 
@@ -44,16 +42,20 @@ const ModalMenu = (props: IProps) => {
       <View
         // onPress={onClose}
         style={[styles.viewContain, ,]}>
-        <View
+        <LinearGradient
           style={{
             width: scale(116),
             height: "100%",
             backgroundColor: "#2CCAC5",
             alignItems: "center",
             justifyContent: "space-between",
-          }}>
+          }}
+          start={{x: 0, y: 0}}
+          end={{x: 1, y: 0}}
+          colors={["#FFFF", "#E4F7E5"]}>
           <TouchableWithoutFeedback onPress={onClose}>
             <Image
+              tintColor={"#1C1C1C"}
               source={images.close}
               style={{
                 width: scale(19.79) * 1.4,
@@ -156,7 +158,7 @@ const ModalMenu = (props: IProps) => {
               </NotoSanText>
             </TouchableOpacity>
           </View> */}
-        </View>
+        </LinearGradient>
       </View>
     </Modal>
   );

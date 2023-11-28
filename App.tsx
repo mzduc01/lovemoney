@@ -6,16 +6,17 @@
  * @flow strict-local
  */
 
-import React, {useEffect} from "react";
-import {StatusBar, StyleSheet, Text, View} from "react-native";
+import React from "react";
+import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
 
+import { LoadingProvider } from "@app/context/LoadingProvider";
 import store from "@app/redux/store";
-import {LoadingProvider} from "@app/context/LoadingProvider";
 //import {AppContainer} from "@app/navigators/app-container";
 
-import {SafeAreaProvider} from "react-native-safe-area-context";
-import {Provider} from "react-redux";
 import { AppContainer } from "@app/navigators";
+import LinearGradient from "react-native-linear-gradient";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Provider } from "react-redux";
 
 const App = () => {
   // useEffect(() => {
@@ -50,7 +51,15 @@ const App = () => {
           translucent={true}
         />
         <SafeAreaProvider>
-          <AppContainer/>
+          <LinearGradient
+            style={{flex: 1}}
+            start={{x: 0, y: 0}}
+            end={{x: 1, y: 0}}
+            colors={["#FFFF", "#E4F7E5"]}>
+            <SafeAreaView style={{flex: 1}}>
+              <AppContainer />
+            </SafeAreaView>
+          </LinearGradient>
         </SafeAreaProvider>
       </Provider>
     </LoadingProvider>
@@ -70,3 +79,6 @@ const styles = StyleSheet.create({
 
 // export default codePush(codePushOptions)(App);
 export default App;
+
+
+

@@ -1,49 +1,46 @@
 import Routes from "@app/navigators/Routes";
+import { HomeScreen } from "@app/screens";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {MyTabBar} from "./tab-bar";
-import {Text, TouchableOpacity, View} from "react-native";
-import {navigate} from "@app/navigators/rootNavigation";
-import AppActions from "@app/redux/app/actions";
-import {useDispatch} from "react-redux";
-import {HomeScreen} from "@app/screens";
+import { Header } from "./header";
+import { MyTabBar } from "./tab-bar";
 
 const BottomTabStack = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
-  const dispatch = useDispatch();
   return (
     <>
       <BottomTabStack.Navigator
         initialRouteName={Routes.HOME}
         tabBar={(props: any) => <MyTabBar {...props} />}
         screenOptions={{
-          headerShown: false,
+          //headerShown: false,
+          header: (props) => <Header {...props}/>
         }}>
         <BottomTabStack.Screen
           options={{
-            tabBarLabel: "Home",
+            tabBarLabel: "Trang chủ",
           }}
           name={Routes.HOME}
           component={HomeScreen}
         />
         <BottomTabStack.Screen
           options={{
-            tabBarLabel: "Activity",
+            tabBarLabel: "Hoạt động",
           }}
           name={Routes.ACTIVITY}
           component={HomeScreen}
         />
         <BottomTabStack.Screen
           options={{
-            tabBarLabel: "Chart",
+            tabBarLabel: "Biểu đồ",
           }}
           name={Routes.CHART}
           component={HomeScreen}
         />
         <BottomTabStack.Screen
           options={{
-            tabBarLabel: "Setting",
+            tabBarLabel: "Cài đặt",
           }}
           name={Routes.SETTING}
           component={HomeScreen}

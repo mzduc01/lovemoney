@@ -6,22 +6,34 @@ import {Colors} from "react-native/Libraries/NewAppScreen";
 import {useDispatch} from "react-redux";
 import {iconForcusList, iconList} from "./constant";
 import LinearGradient from "react-native-linear-gradient";
+import GilroyText from "@app/components/text/GilroyText";
 
 export function MyTabBar({state, descriptors, navigation}: any) {
   const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
 
   return (
-    <View style={{backgroundColor: Colors.white}}>
+    <View
+      style={{
+        backgroundColor: Colors.white,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.22,
+        shadowRadius: 5.22,
+        elevation: 7,
+      }}>
       <LinearGradient
         start={{x: 0, y: 0}}
         end={{x: 1, y: 0}}
-        colors={["#FFFF", "#E4F7E5"]}
+        colors={["#FFFF", "#E7F7E5"]}
         style={[
           styles.tabBarContainer,
           {
-            paddingBottom: insets.bottom,
-            height: scale(64) + insets.bottom,
+            //paddingBottom: insets.bottom,
+            height: scale(35) + insets.bottom,
           },
         ]}>
         {state.routes.map((route: any, index: number) => {
@@ -76,13 +88,13 @@ export function MyTabBar({state, descriptors, navigation}: any) {
                     }}>
                     {Icon}
                   </View>
-                  <Text
+                  <GilroyText
                     style={{
                       color: isFocused ? "#1C1C1C" : "#D0D0D0",
                       fontSize: moderateScale(10),
                     }}>
                     {label}
-                  </Text>
+                  </GilroyText>
                 </View>
 
                 {/* {index === 2 && <Badge />} */}
