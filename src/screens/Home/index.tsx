@@ -1,17 +1,18 @@
 import GilroyText from "@app/components/text/GilroyText";
 import {BottomSheetModal, BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 import React, {useCallback, useMemo, useRef} from "react";
-import {ScrollView, StyleSheet, Text, View} from "react-native";
-import {CurrentBalence, FloatingButton} from "./component";
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {CurrentBalence, FloatingButton, OptionsAdd} from "./component";
 import LinearGradient from "react-native-linear-gradient";
 import {height, width} from "@app/utils/scale";
 import LottieView from "lottie-react-native";
+import {PlusCircle} from "lucide-react-native";
 
 export const HomeScreen = () => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
   // variables
-  const snapPoints = useMemo(() => ["25%", "80%"], []);
+  const snapPoints = useMemo(() => ["50%", "100%"], []);
 
   // callbacks
   const handlePresentModalPress = useCallback(() => {
@@ -37,7 +38,11 @@ export const HomeScreen = () => {
           autoPlay
           loop
         /> */}
-        <CurrentBalence />
+        {/* <CurrentBalence /> */}
+        <TouchableOpacity style={{alignItems: "center", marginTop: 30}}>
+          <PlusCircle size={23} color="#646464" />
+          <GilroyText>Thêm tiền</GilroyText>
+        </TouchableOpacity>
         <View
           style={{
             margin: 20,
@@ -76,17 +81,6 @@ export const HomeScreen = () => {
       <BottomSheetModalProvider>
         <FloatingButton onPress={handlePresentModalPress} />
         <BottomSheetModal
-          handleStyle={{
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.22,
-            shadowRadius: 2.22,
-            elevation: 7,
-            borderWidth: 1,
-          }}
           handleComponent={() => (
             <LinearGradient
               style={{
@@ -148,7 +142,9 @@ export const HomeScreen = () => {
                 shadowOpacity: 0.22,
                 shadowRadius: 2.22,
                 elevation: 7,
-              }}></View>
+              }}>
+              <OptionsAdd />
+            </View>
           </LinearGradient>
         </BottomSheetModal>
       </BottomSheetModalProvider>
