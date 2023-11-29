@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import appReducer from '@app/redux/app/reducer';
+import budgetSlice from '@app/redux/budget/reducer'
 
 const rootReducer = combineReducers({
   appReducer,
+  budgetSlice
 });
 
 const store = configureStore({

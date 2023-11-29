@@ -1,21 +1,27 @@
 import GilroyText from "@app/components/text/GilroyText";
+import {increment} from "@app/redux/budget/reducer";
+import {RootState} from "@app/redux/store";
+import {width} from "@app/utils/scale";
 import {BottomSheetModal, BottomSheetModalProvider} from "@gorhom/bottom-sheet";
-import React, {useCallback, useMemo, useRef} from "react";
-import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {CurrentBalence, FloatingButton, OptionsAdd} from "./component";
+import {MinusCircle, PlusCircle} from "lucide-react-native";
+import React, {useCallback, useMemo, useRef, useState} from "react";
+import {ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import {height, width} from "@app/utils/scale";
-import LottieView from "lottie-react-native";
-import {PlusCircle} from "lucide-react-native";
+import {useDispatch, useSelector} from "react-redux";
+import {BalanceAdd, FloatingButton, OptionsAdd} from "./component";
+import useAnimatedState from "@app/hooks/useAnimatedState";
+import {BounceIn, BounceOut} from "react-native-reanimated";
 
 export const HomeScreen = () => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-
+  const dispatch = useDispatch();
+  const [stateAdd, setStateAdd] = React.useState(true);
   // variables
   const snapPoints = useMemo(() => ["50%", "100%"], []);
 
   // callbacks
-  const handlePresentModalPress = useCallback(() => {
+  const handlePresentModalPress = useCallback((state: boolean) => {
+    setStateAdd(state);
     bottomSheetModalRef.current?.present();
   }, []);
   const handleBackModalPress = useCallback(() => {
@@ -24,6 +30,12 @@ export const HomeScreen = () => {
   const handleSheetChanges = useCallback((index: number) => {
     console.log("handleSheetChanges", index);
   }, []);
+
+  const counter = useSelector(
+    (state: RootState) => state.budgetSlice.currentBalance,
+  );
+  const [open, setOpen] = React.useState(false);
+
 
   return (
     <View style={{flex: 1, backgroundColor: "white"}}>
@@ -39,10 +51,12 @@ export const HomeScreen = () => {
           loop
         /> */}
         {/* <CurrentBalence /> */}
-        <TouchableOpacity style={{alignItems: "center", marginTop: 30}}>
+        {/* <TouchableOpacity
+          onPress={() => handlePresentModalPress(false)}
+          style={{alignItems: "center", marginTop: 30}}>
           <PlusCircle size={23} color="#646464" />
           <GilroyText>Thêm tiền</GilroyText>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <View
           style={{
             margin: 20,
@@ -79,7 +93,36 @@ export const HomeScreen = () => {
       </ScrollView>
 
       <BottomSheetModalProvider>
-        <FloatingButton onPress={handlePresentModalPress} />
+        <FloatingButton
+          style={{bottom: 20, width: 70, height: 70}}
+          onPress={() => setOpen(!open)}
+          Icon={PlusCircle}
+        />
+        {open && (
+          <>
+            <FloatingButton
+              entering={BounceIn}
+              exiting={BounceOut}
+              style={{bottom: 90, right: 90}}
+              onPress={() => handlePresentModalPress(false)}
+              Icon={PlusCircle}
+            />
+            <FloatingButton
+              entering={BounceIn}
+              exiting={BounceOut}
+              style={{bottom: 20, right: 110}}
+              onPress={() => handlePresentModalPress(true)}
+              Icon={MinusCircle}
+            />
+            <FloatingButton
+              entering={BounceIn}
+              exiting={BounceOut}
+              style={{bottom: 110}}
+              onPress={() => handlePresentModalPress(false)}
+              Icon={PlusCircle}
+            />
+          </>
+        )}
         <BottomSheetModal
           handleComponent={() => (
             <LinearGradient
@@ -143,7 +186,7 @@ export const HomeScreen = () => {
                 shadowRadius: 2.22,
                 elevation: 7,
               }}>
-              <OptionsAdd />
+              {stateAdd ? <OptionsAdd /> : <BalanceAdd />}
             </View>
           </LinearGradient>
         </BottomSheetModal>
