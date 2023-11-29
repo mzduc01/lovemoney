@@ -1,5 +1,5 @@
 import Routes from "@app/navigators/Routes";
-import { HomeScreen } from "@app/screens";
+import { HomeScreen, SignImage } from "@app/screens";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import { Header } from "./header";
@@ -29,7 +29,7 @@ const BottomTabNavigator = () => {
             tabBarLabel: "Hoạt động",
           }}
           name={Routes.ACTIVITY}
-          component={HomeScreen}
+          component={SignImage}
         />
         <BottomTabStack.Screen
           options={{

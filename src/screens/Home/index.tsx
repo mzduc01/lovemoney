@@ -1,21 +1,29 @@
 import GilroyText from "@app/components/text/GilroyText";
 import {increment} from "@app/redux/budget/reducer";
 import {RootState} from "@app/redux/store";
-import {width} from "@app/utils/scale";
+import {height, width} from "@app/utils/scale";
 import {BottomSheetModal, BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 import {MinusCircle, PlusCircle} from "lucide-react-native";
 import React, {useCallback, useMemo, useRef, useState} from "react";
-import {ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Image,
+} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import {useDispatch, useSelector} from "react-redux";
 import {BalanceAdd, FloatingButton, OptionsAdd} from "./component";
 import useAnimatedState from "@app/hooks/useAnimatedState";
 import {BounceIn, BounceOut} from "react-native-reanimated";
+// import RNPhotoManipulator from "react-native-photo-manipulator";
 
 export const HomeScreen = () => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const dispatch = useDispatch();
   const [stateAdd, setStateAdd] = React.useState(true);
+  const [imageUrl, setImageUrl] = React.useState<any>();
   // variables
   const snapPoints = useMemo(() => ["50%", "100%"], []);
 
@@ -36,6 +44,19 @@ export const HomeScreen = () => {
   );
   const [open, setOpen] = React.useState(false);
 
+  const onClick = async () => {
+    const image = "https://unsplash.com/photos/qw6qQQyYQpo/download?force=true";
+    const overlay = "https://www.iconfinder.com/icons/1174949/download/png/128";
+    const position = {x: 20, y: 20};
+
+    // await RNPhotoManipulator.overlayImage(image, overlay, position).then(
+    //   path => {
+    //     console.log(`Result image path: ${path}`);
+    //     setImageUrl(path);
+    //   },
+    // );
+  };
+  console.log("checkkk", imageUrl);
 
   return (
     <View style={{flex: 1, backgroundColor: "white"}}>
@@ -57,6 +78,13 @@ export const HomeScreen = () => {
           <PlusCircle size={23} color="#646464" />
           <GilroyText>Thêm tiền</GilroyText>
         </TouchableOpacity> */}
+        {imageUrl && (
+          <Image
+            style={{width: width, height: height / 2}}
+            source={{uri: imageUrl}}
+            resizeMode="contain"
+          />
+        )}
         <View
           style={{
             margin: 20,
@@ -103,8 +131,8 @@ export const HomeScreen = () => {
             <FloatingButton
               entering={BounceIn}
               exiting={BounceOut}
-              style={{bottom: 90, right: 90}}
-              onPress={() => handlePresentModalPress(false)}
+              style={{bottom: 90, right: 90, backgroundColor: "red"}}
+              onPress={onClick}
               Icon={PlusCircle}
             />
             <FloatingButton
